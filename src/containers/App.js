@@ -16,7 +16,7 @@ let page = 1;
 let userQueryInput = 'random';
 let accessKey = 'UB47zzyZZUCV5oltzO136BivI1u1oOQiO96YF7UeB7U';
 let imgAggregator = []; //img aggregator: store all the img downloaded ==> pass it to the state "searchQuery"
-let myModal;
+let inputSearchElement;
 
 //////////////////////////////////////////
 //COMPONTENTS START
@@ -35,19 +35,18 @@ constructor(){
 
 // FETCHING IMG
 getImagesFromApi(){
-	// imgAggregator = imgAggregator.concat(imageDb)
-	// this.setState({
-	// 	imgArray: imgAggregator,
-	// })
 
-let url =`https://api.unsplash.com/search/photos?query=${userQueryInput}&client_id=${accessKey}&page=${page}&per_page=${count}`;
+	imgAggregator = imgAggregator.concat(imageDb)
+	this.setState({
+		imgArray: imgAggregator,
+	})
+
+	let url =`https://api.unsplash.com/search/photos?query=${userQueryInput}&client_id=${accessKey}&page=${page}&per_page=${count}`;
 
 	// SEARCH QUERY URL
-	fetch(`https://api.unsplash.com/search/photos?query=${userQueryInput}&client_id=${accessKey}&page=${page}&per_page=${count}`)
-	.then(response => { return response.json()})
-	.then(images => {imgAggregator = imgAggregator.concat(images.results); this.setState({ imgArray: imgAggregator,})});
-
-	
+	// fetch(`https://api.unsplash.com/search/photos?query=${userQueryInput}&client_id=${accessKey}&page=${page}&per_page=${count}`)
+	// .then(response => { return response.json()})
+	// .then(images => {imgAggregator = imgAggregator.concat(images.results); this.setState({ imgArray: imgAggregator,})});
 
 	console.log('/// START DEBUGGING ////');
 	console.log('url', url);
@@ -61,11 +60,10 @@ let url =`https://api.unsplash.com/search/photos?query=${userQueryInput}&client_
 
 // INFINITE SCROLLING
 handleScroll = () => {
+	let sum = window.innerHeight + window.scrollY ;
+	let body = document.body.offsetHeight;
 
-let sum = window.innerHeight + window.scrollY ;
-let body = document.body.offsetHeight;
-
-if(sum >= body){
+	if(sum >= body){
 		page++;
 		this.getImagesFromApi();
 	};
@@ -73,18 +71,27 @@ if(sum >= body){
 
 // HIDE/SHOW LOADING ANIMATION
 onImgLoad = () => {
-loadingCounter++;
-
-if(loadingCounter >= count){
-	this.setState({
-		render: true
-	});
 	
-	loadingCounter = 0;
+	loadingCounter++;
+
+	if(loadingCounter >= count){
+		loadingCounter = 0;
+		this.setState({
+			render: true
+		});	
 	}
 }
 
-// SEARCH QUERY MANAGEMENT
+// SEARCH QUERY
+
+//- clear search input after :click || enter
+
+resetSearchParameter = () => {
+	imgAggregator = [];
+	page = 1;
+	window.scrollTo(0,0);
+}
+
 onInputChange = (data) =>{
 	userQueryInput = data.target.value;
 	return{
@@ -92,32 +99,35 @@ onInputChange = (data) =>{
 	}
 }
 
-onCLickRunQuery = () => {
+//- need to reset the onInputChange (userQueryInput)
+clickSearchButton = (data) => {
 	if(userQueryInput !== ""){
-		imgAggregator = [];
-		page = 1;
-		window.scrollTo(0,0);
+		this.resetSearchParameter();
 		this.getImagesFromApi();
+		console.log('input after click', inputSearchElement[0].value, inputSearchElement[1].value);
+		inputSearchElement[0].value = '';
+		inputSearchElement[1].value = '';
 	}
-
 }
 
-onInputHitEnter = (data) => {
+hitEnter = (data) => {
 	if(data.keyCode === 13 && data.target.value !== ""){
-		imgAggregator = [];
-		page = 1;
-		window.scrollTo(0,0);
+		this.resetSearchParameter();
 		this.getImagesFromApi();
 		data.target.value = "";
 	}
 }
 
-
-
+//////////////////////////////////////////
+//////////////////////////////////////////
 //COMPOPNENT DID MOUNT
+
 componentDidMount(){
 	this.getImagesFromApi();
 	window.addEventListener('scroll', this.handleScroll);
+	inputSearchElement = document.getElementsByClassName('header-search-input');
+
+
 }
 
 // RENDER THE COMPONENTS and pass parameters
@@ -125,7 +135,7 @@ render(){
 		return(
 			<div className="app-container" >
 				<Loader  renderStatus={this.state.render}/>
-				<Header onInputChange={this.onInputChange} onCLickRunQuery={this.onCLickRunQuery} onInputHitEnter={this.onInputHitEnter} />
+				<Header onInputChange={this.onInputChange} clickSearchButton={this.clickSearchButton} hitEnter={this.hitEnter} />
 				<ImageList renderStatus={this.state.render} onImgLoad={this.onImgLoad} imgArray={this.state.imgArray} maximizeImage={this.maximizeImage}/>
 			</div>
 		)

@@ -1,6 +1,6 @@
 import React from 'react';
 import './Loader.css';
-import '../loader.svg';
+import '../../public/loader.svg';
 
 const Loader = ({renderStatus }) => {
     

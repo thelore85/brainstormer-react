@@ -6,7 +6,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas'; // sidebar menu
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './NavSticky.css';
 
-const NavSticky = ({ onInputChange, onCLickRunQuery, onInputHitEnter }) =>{
+const NavSticky = ({ onInputChange, clickSearchButton, hitEnter }) =>{
 
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
@@ -44,8 +44,8 @@ function scrollFunction() {
 					</div>
 
 					<div className="header-search-wrapper">
-						<input className="header-search-input" type="search" placeholder="your creativity start here" onChange={onInputChange} onKeyUp={onInputHitEnter}/>
-						<button className="header-search-button" variant="primary" onClick={onCLickRunQuery}>
+						<input className="header-search-input" type="search" placeholder="your creativity start here" onChange={onInputChange} onKeyUp={hitEnter}/>
+						<button className="header-search-button" variant="primary" onClick={clickSearchButton}>
 							<i className="fas fa-search"></i>
 							<span className="button-text">search</span>
 						</button>
@@ -59,12 +59,10 @@ function scrollFunction() {
 						</Offcanvas.Header>
 						<Offcanvas.Body>
 							<p>
-							Use the filter set below to search the images for your moodboard.
-							Chose the one you like and save the collection in your personal Board<br/>
-							</p>
-
-	
-							
+							Search the images for your moodboard.<br />
+							Chose the one you like and save the collection in your personal Board.<br/>
+							All images are royalty free and can be used for both personal or commercial use.
+							</p>						
 						</Offcanvas.Body>
 					</Offcanvas>
 

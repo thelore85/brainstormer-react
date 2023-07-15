@@ -2,12 +2,12 @@ import React from 'react';
 import NavHero from './NavHero';
 import NavSticky from './NavSticky';
 
-const Header = ({ onInputChange, onCLickRunQuery, onInputHitEnter }) =>{
+const Header = ({ onInputChange, clickSearchButton, hitEnter }) =>{
 
     return(
     <section className=''>
-        <NavHero onInputChange={onInputChange} onCLickRunQuery={onCLickRunQuery} onInputHitEnter={onInputHitEnter} />
-        <NavSticky onInputChange={onInputChange} onCLickRunQuery={onCLickRunQuery} onInputHitEnter={onInputHitEnter} />
+        <NavHero onInputChange={onInputChange} clickSearchButton={clickSearchButton} hitEnter={hitEnter} />
+        <NavSticky onInputChange={onInputChange} clickSearchButton={clickSearchButton} hitEnter={hitEnter} />
     </section>
     )
 }
