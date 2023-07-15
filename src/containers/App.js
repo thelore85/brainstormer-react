@@ -1,6 +1,13 @@
-///////////////////////////////////////////
-// IMOPRT AND VARIABLES
+//////////////////////////////////////
+// TO FIX
+//- infinite scrolling on mobile
 
+
+
+///////////////////////////////////////////
+///////////////////////////////////////////
+
+// IMOPRT AND VARIABLES
 import React, { Component } from 'react';
 import { imageDb } from '../Db.js';
 
@@ -19,9 +26,9 @@ let imgAggregator = []; //img aggregator: store all the img downloaded ==> pass 
 let inputSearchElement;
 
 //////////////////////////////////////////
-//COMPONTENTS START
 //////////////////////////////////////////
 
+//COMPONTENTS START
 class App extends Component{
 	
 // STATE setup
@@ -35,19 +42,19 @@ constructor(){
 
 // FETCHING IMG
 getImagesFromApi(){
-
-	imgAggregator = imgAggregator.concat(imageDb)
-	this.setState({
-		imgArray: imgAggregator,
-	})
+	// imgAggregator = imgAggregator.concat(imageDb)
+	// this.setState({
+	// 	imgArray: imgAggregator,
+	// })
 
 	let url =`https://api.unsplash.com/search/photos?query=${userQueryInput}&client_id=${accessKey}&page=${page}&per_page=${count}`;
 
 	// SEARCH QUERY URL
-	// fetch(`https://api.unsplash.com/search/photos?query=${userQueryInput}&client_id=${accessKey}&page=${page}&per_page=${count}`)
-	// .then(response => { return response.json()})
-	// .then(images => {imgAggregator = imgAggregator.concat(images.results); this.setState({ imgArray: imgAggregator,})});
+	fetch(`https://api.unsplash.com/search/photos?query=${userQueryInput}&client_id=${accessKey}&page=${page}&per_page=${count}`)
+	.then(response => { return response.json()})
+	.then(images => {imgAggregator = imgAggregator.concat(images.results); this.setState({ imgArray: imgAggregator,})});
 
+	//DEBUGGING
 	console.log('/// START DEBUGGING ////');
 	console.log('url', url);
 	console.log('query', userQueryInput);
@@ -71,7 +78,6 @@ handleScroll = () => {
 
 // HIDE/SHOW LOADING ANIMATION
 onImgLoad = () => {
-	
 	loadingCounter++;
 
 	if(loadingCounter >= count){
@@ -83,9 +89,6 @@ onImgLoad = () => {
 }
 
 // SEARCH QUERY
-
-//- clear search input after :click || enter
-
 resetSearchParameter = () => {
 	imgAggregator = [];
 	page = 1;
@@ -99,12 +102,10 @@ onInputChange = (data) =>{
 	}
 }
 
-//- need to reset the onInputChange (userQueryInput)
 clickSearchButton = (data) => {
 	if(userQueryInput !== ""){
 		this.resetSearchParameter();
 		this.getImagesFromApi();
-		console.log('input after click', inputSearchElement[0].value, inputSearchElement[1].value);
 		inputSearchElement[0].value = '';
 		inputSearchElement[1].value = '';
 	}
@@ -120,14 +121,12 @@ hitEnter = (data) => {
 
 //////////////////////////////////////////
 //////////////////////////////////////////
-//COMPOPNENT DID MOUNT
 
+//COMPOPNENT DID MOUNT
 componentDidMount(){
 	this.getImagesFromApi();
 	window.addEventListener('scroll', this.handleScroll);
 	inputSearchElement = document.getElementsByClassName('header-search-input');
-
-
 }
 
 // RENDER THE COMPONENTS and pass parameters
@@ -143,4 +142,5 @@ render(){
 }
 
 export default App;
+
 ////////////////////////////////////////////////
