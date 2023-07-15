@@ -13,7 +13,7 @@ import './App.css';
 let loadingCounter = 0;
 let count = 12;
 let page = 1;
-let userQueryInput = 'madrid';
+let userQueryInput = 'random';
 let accessKey = 'UB47zzyZZUCV5oltzO136BivI1u1oOQiO96YF7UeB7U';
 let imgAggregator = []; //img aggregator: store all the img downloaded ==> pass it to the state "searchQuery"
 let myModal;
@@ -40,17 +40,22 @@ getImagesFromApi(){
 	// 	imgArray: imgAggregator,
 	// })
 
+let url =`https://api.unsplash.com/search/photos?query=${userQueryInput}&client_id=${accessKey}&page=${page}&per_page=${count}`;
+
 	// SEARCH QUERY URL
 	fetch(`https://api.unsplash.com/search/photos?query=${userQueryInput}&client_id=${accessKey}&page=${page}&per_page=${count}`)
 	.then(response => { return response.json()})
 	.then(images => {imgAggregator = imgAggregator.concat(images.results); this.setState({ imgArray: imgAggregator,})});
 
-	userQueryInput
+	
 
-
+	console.log('/// START DEBUGGING ////');
+	console.log('url', url);
+	console.log('query', userQueryInput);
 	console.log('page', page);
 	console.log('aggr img', imgAggregator);
 	console.log('state img', this.state.imgArray);
+	console.log('/// END DEBUGGING ////');
 
 }
 
@@ -113,7 +118,6 @@ onInputHitEnter = (data) => {
 componentDidMount(){
 	this.getImagesFromApi();
 	window.addEventListener('scroll', this.handleScroll);
-	userQueryInput = ''; //reset query after first loada (defaul query set in variable)
 }
 
 // RENDER THE COMPONENTS and pass parameters

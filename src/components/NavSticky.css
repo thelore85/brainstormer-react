@@ -4,6 +4,8 @@
   /* position: relative; */
   transition: all 0.5s;
   top: -200px;
+  margin: 0;
+  padding: 0;
 }
 
 
@@ -113,12 +115,11 @@ nav .header-logo-icon{
     display: block;
     text-align: left;
     width:100%;
-
   }
   
   nav .header-search-input{
     margin: 0;
-    width: 90%;
+    width: 85%;
     height:30px;
     font-size: 12px;
     border-radius: 20px 0px 0px 20px ;
@@ -129,7 +130,7 @@ nav .header-logo-icon{
   
   nav .header-search-button {
     z-index: 1;
-    width: 10%;
+    width: 15%;
     position: relative;
     height:30px;
     margin: auto;

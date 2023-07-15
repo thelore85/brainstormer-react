@@ -33,7 +33,7 @@ const NavHero = ({ onInputChange, onCLickRunQuery, onInputHitEnter }) =>{
 					</div>
 
 					<div className="header-search-wrapper">
-						<input className="header-search-input" type="text" placeholder="your creativity start here" onChange={onInputChange} onKeyUp={onInputHitEnter}/>
+						<input className="header-search-input" type="search" placeholder="your creativity start here" onChange={onInputChange} onKeyUp={onInputHitEnter}/>
 						<button className="header-search-button" variant="primary" onClick={onCLickRunQuery}>
 							<i className="fas fa-search"></i>
 							<span className="button-text">search</span>
@@ -51,8 +51,6 @@ const NavHero = ({ onInputChange, onCLickRunQuery, onInputHitEnter }) =>{
 							Use the filter set below to search the images for your moodboard.
 							Chose the one you like and save the collection in your personal Board<br/>
 							</p>
-
-							<input id="save-filter" className="input button header-button" type="button" value="Create your MoodBoard" />
 							
 						</Offcanvas.Body>
 					</Offcanvas>

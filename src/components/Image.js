@@ -14,7 +14,7 @@ const Image = ({ src, onImgLoad }) => {
 
 	return(
 	<div className="image-wrapper">
-		<img className="image-item" src={src.small} onLoad={onImgLoad} onClick={handleShow}/>
+		<img className="image-item" src={src.regular} onLoad={onImgLoad} onClick={handleShow}/>
 
 		{/* image menu */}
 		<div className="info" hidden>

@@ -25,7 +25,7 @@ function scrollFunction() {
 
 	return(
 <>
-<nav class=" navbar fixed-top " id="navbar">
+<nav className="navbar fixed-top " id="navbar">
 				<div className="header-wrapper">
 
 					{/* header and logo */}
@@ -44,7 +44,7 @@ function scrollFunction() {
 					</div>
 
 					<div className="header-search-wrapper">
-						<input className="header-search-input" type="text" placeholder="your creativity start here" onChange={onInputChange} onKeyUp={onInputHitEnter}/>
+						<input className="header-search-input" type="search" placeholder="your creativity start here" onChange={onInputChange} onKeyUp={onInputHitEnter}/>
 						<button className="header-search-button" variant="primary" onClick={onCLickRunQuery}>
 							<i className="fas fa-search"></i>
 							<span className="button-text">search</span>
@@ -63,7 +63,7 @@ function scrollFunction() {
 							Chose the one you like and save the collection in your personal Board<br/>
 							</p>
 
-							<input id="save-filter" className="input button header-button" type="button" value="Create your MoodBoard" />
+	
 							
 						</Offcanvas.Body>
 					</Offcanvas>
