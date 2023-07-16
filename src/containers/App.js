@@ -1,6 +1,7 @@
-//////////////////////////////////////
+//////////////////////////////////////////
 // TO FIX
 //- infinite scrolling on mobile
+
 
 ///////////////////////////////////////////
 ///////////////////////////////////////////
@@ -46,23 +47,10 @@ getImagesFromApi(){
 	// 	imgArray: imgAggregator,
 	// })
 
-	let url =`https://api.unsplash.com/search/photos?query=${userQueryInput}&client_id=${accessKey}&page=${page}&per_page=${count}`;
-
 	// SEARCH QUERY URL
 	fetch(`https://api.unsplash.com/search/photos?query=${userQueryInput}&client_id=${accessKey}&page=${page}&per_page=${count}`)
 	.then(response => { return response.json()})
 	.then(images => {imgAggregator = imgAggregator.concat(images.results); this.setState({ imgArray: imgAggregator,})});
-
-	//DEBUGGING
-	// console.log('/// START DEBUGGING ////');
-	// console.log('url', url);
-	// console.log('query', userQueryInput);
-	// console.log('page', page);
-	// console.log('aggr img', imgAggregator);
-	// console.log('state img', this.state.imgArray);
-	// console.log('/// END DEBUGGING ////');
-
-
 }
 
 // INFINITE SCROLLING
@@ -147,4 +135,4 @@ render(){
 
 export default App;
 
-////////////////////////////////////////////////
+////////////////////////////////////////////
