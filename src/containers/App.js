@@ -19,7 +19,7 @@ import './App.css';
 let loadingCounter = 0;
 let count = 12;
 let page = 1;
-let userQueryInput = 'random';
+let userQueryInput = 'watermelon';
 let accessKey = 'UB47zzyZZUCV5oltzO136BivI1u1oOQiO96YF7UeB7U';
 let imgAggregator = []; //img aggregator: store all the img downloaded ==> pass it to the state "searchQuery"
 let inputSearchElement;
@@ -57,11 +57,13 @@ getImagesFromApi(){
 handleScroll = () => {
 	let windowHeight =  document.body.offsetHeight - window.innerHeight;
 	let scrollLevel = window.scrollY;
+	// console.log('scroll', scrollLevel)
+	// console.log('window', windowHeight - 400)
 
-	if(scrollLevel === windowHeight & this.state.renderImage){
+	if(scrollLevel > windowHeight - 400 & this.state.renderImage){
 		this.setState({ renderImage: false }) // show loading
 		
-		console.log('scroll action page')
+		console.log('new API load')
 		page++;
 		this.getImagesFromApi();
 	};
