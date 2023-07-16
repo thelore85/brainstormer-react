@@ -2,8 +2,6 @@
 // TO FIX
 //- infinite scrolling on mobile
 
-
-
 ///////////////////////////////////////////
 ///////////////////////////////////////////
 
@@ -36,7 +34,8 @@ constructor(){
 	super()
 	this.state = {
 		imgArray:[], //
-		render: false,
+		renderImage: false,
+		firstLoad: false,
 	}
 };
 
@@ -55,35 +54,40 @@ getImagesFromApi(){
 	.then(images => {imgAggregator = imgAggregator.concat(images.results); this.setState({ imgArray: imgAggregator,})});
 
 	//DEBUGGING
-	console.log('/// START DEBUGGING ////');
-	console.log('url', url);
-	console.log('query', userQueryInput);
-	console.log('page', page);
-	console.log('aggr img', imgAggregator);
-	console.log('state img', this.state.imgArray);
-	console.log('/// END DEBUGGING ////');
+	// console.log('/// START DEBUGGING ////');
+	// console.log('url', url);
+	// console.log('query', userQueryInput);
+	// console.log('page', page);
+	// console.log('aggr img', imgAggregator);
+	// console.log('state img', this.state.imgArray);
+	// console.log('/// END DEBUGGING ////');
+
 
 }
 
 // INFINITE SCROLLING
 handleScroll = () => {
-	let sum = window.innerHeight + window.scrollY ;
-	let body = document.body.offsetHeight;
+	let windowHeight =  document.body.offsetHeight - window.innerHeight;
+	let scrollLevel = window.scrollY;
 
-	if(sum >= body){
+	if(scrollLevel === windowHeight & this.state.renderImage){
+		this.setState({ renderImage: false }) // show loading
+		
+		console.log('scroll action page')
 		page++;
 		this.getImagesFromApi();
 	};
 }
 
-// HIDE/SHOW LOADING ANIMATION
+// IMAGE LOAD and LOADING ANIMATION
 onImgLoad = () => {
 	loadingCounter++;
 
 	if(loadingCounter >= count){
 		loadingCounter = 0;
 		this.setState({
-			render: true
+			renderImage: true,
+			firstLoad: true,
 		});	
 	}
 }
@@ -133,9 +137,9 @@ componentDidMount(){
 render(){
 		return(
 			<div className="app-container" >
-				<Loader  renderStatus={this.state.render}/>
+				<Loader  firstLoad={this.state.firstLoad}/>
 				<Header onInputChange={this.onInputChange} clickSearchButton={this.clickSearchButton} hitEnter={this.hitEnter} />
-				<ImageList renderStatus={this.state.render} onImgLoad={this.onImgLoad} imgArray={this.state.imgArray} maximizeImage={this.maximizeImage}/>
+				<ImageList onImgLoad={this.onImgLoad} imgArray={this.state.imgArray} maximizeImage={this.maximizeImage}/>
 			</div>
 		)
 	}
