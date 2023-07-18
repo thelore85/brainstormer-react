@@ -3,7 +3,7 @@ import Image from './Image';
 
 import './ImageList.css';
 
-const ImageList = ({ imgArray, onImgLoad, maximizeImage }) =>{
+const ImageList = ({ imgArray, imgLoaded, maximizeImage }) =>{
 
 	let imgElementsArr
 	let counter = imgArray.length;	
@@ -13,7 +13,7 @@ const ImageList = ({ imgArray, onImgLoad, maximizeImage }) =>{
 				<Image
 					key={el+i}
 					src={imgArray[i].urls}
-					onImgLoad={onImgLoad}
+					imgLoaded={imgLoaded}
 					maximizeImage={maximizeImage}
 				/> 
 			)

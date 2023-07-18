@@ -1,6 +1,19 @@
 //////////////////////////////////////////
-// TO FIX
-//- infinite scrolling on mobile
+// TO FIX/DO
+//- new Featchure: add image to mood board
+//----- add an 'add' function to the image
+//----- create a 'my mood' array to store added img
+//----- create a badge menu for the img added
+//----- function: click on the bedge show the moodboard
+//----- save the mood with a personal name
+
+//- new featchure: add policy page
+//- new: add cookies
+//- new: integrate unsplash guidelines
+
+//- RICERCA AGENZIA DI COLLOCAMENTO DIGITAL
+//- RICERCA ACCADEMY FRONT-END
+//- 
 
 
 ///////////////////////////////////////////
@@ -19,7 +32,7 @@ import './App.css';
 let loadingCounter = 0;
 let count = 12;
 let page = 1;
-let userQueryInput = 'watermelon';
+let userQueryInput = 'fruits';
 let accessKey = 'UB47zzyZZUCV5oltzO136BivI1u1oOQiO96YF7UeB7U';
 let imgAggregator = []; //img aggregator: store all the img downloaded ==> pass it to the state "searchQuery"
 let inputSearchElement;
@@ -70,7 +83,7 @@ handleScroll = () => {
 }
 
 // IMAGE LOAD and LOADING ANIMATION
-onImgLoad = () => {
+imgLoaded = () => {
 	loadingCounter++;
 
 	if(loadingCounter >= count){
@@ -129,7 +142,7 @@ render(){
 			<div className="app-container" >
 				<Loader  firstLoad={this.state.firstLoad}/>
 				<Header onInputChange={this.onInputChange} clickSearchButton={this.clickSearchButton} hitEnter={this.hitEnter} />
-				<ImageList onImgLoad={this.onImgLoad} imgArray={this.state.imgArray} maximizeImage={this.maximizeImage}/>
+				<ImageList imgLoaded={this.imgLoaded} imgArray={this.state.imgArray} maximizeImage={this.maximizeImage}/>
 			</div>
 		)
 	}

@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import './Image.scss';
 
 
-const Image = ({ src, onImgLoad }) => {
+const Image = ({ src, imgLoaded }) => {
 
 	const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -14,7 +14,7 @@ const Image = ({ src, onImgLoad }) => {
 
 	return(
 	<div className="image-wrapper">
-		<img className="image-item" src={src.regular} onLoad={onImgLoad} onClick={handleShow}/>
+		<img className="image-item" src={src.regular} onLoad={imgLoaded} onClick={handleShow}/>
 
 		{/* image menu */}
 		<div className="info" hidden>
